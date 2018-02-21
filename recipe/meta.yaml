@@ -12,21 +12,20 @@ source:
   sha256: {{ sha256 }}
 
 build:
-  number: 2
+  number: 0
   script: python setup.py install --single-version-externally-managed --record record.txt
 
 requirements:
   build:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+  host:
     - python
     - setuptools
-    - numpy 1.8.*  # [not (win and (py35 or py36))]
-    - numpy 1.9.*  # [win and py35]
-    - numpy 1.11.*  # [win and py36]
+    - numpy
   run:
     - python
-    - numpy >=1.8  # [not (win and (py35 or py36))]
-    - numpy >=1.9  # [win and py35]
-    - numpy >=1.11  # [win and py36]
+    - {{ pin_compatible('numpy') }}
 
 test:
   imports:
@@ -113,6 +112,7 @@ test:
 about:
   home: http://github.com/biopython/biopython
   license: Biopython License Agreement
+  license_family: Other
   license_file: LICENSE.rst
   summary: 'Collection of freely available tools for computational molecular biology'
 
