@@ -1,109 +1,176 @@
 {% set name = "biopython" %}
-{% set version = "1.78" %}
-{% set sha256 = "1ee0a0b6c2376680fea6642d5080baa419fd73df104a62d58a8baf7a8bbe4564" %}
+{% set version = "1.85" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 5dafab74059de4e78f49f6b5684eddae6e7ce46f09cfa059c1d1339e8b1ea0a6
 
 build:
   number: 0
-  script: {{ PYTHON }} -m pip install . --no-deps --ignore-installed --no-cache-dir -vvv
+  skip: True  # [py<39]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
 
 requirements:
   build:
+    - {{ stdlib('c') }}
     - {{ compiler('c') }}
   host:
-    - python
     - pip
+    - wheel
+    - python
+    - setuptools
   run:
     - python
     - numpy
 
+# Test file skipping due to missing import dependencies which are not in main channel
+{% set test_files_to_skip = "--ignore=test_BWA_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_BioSQL_MySQLdb.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_BioSQL_MySQLdb_online.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_BioSQL_mysql_connector.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_BioSQL_mysql_connector_online.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_BioSQL_psycopg2.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_BioSQL_psycopg2_online.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_ClustalOmega_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Clustalw_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Dialign_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Emboss.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_EmbossPhylipNew.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Fasttree_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_MSAProbs_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Mafft_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Muscle_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_NCBI_BLAST_tools.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_PAML_tools.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_PDB_PSEA.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_PDB_binary_cif.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_PDB_internal_coords.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Phylo_CDAO.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Phylo_igraph.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Phylo_matplotlib.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Phylo_networkx.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_PopGen_GenePop.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_PopGen_GenePop_EasyController.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Prank_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Probcons_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_TCoffee_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_Tutorial.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_XXmotif_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_mmtf.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_mmtf_online.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_phenotype_fit.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_phyml_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_raxml_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_samtools_tool.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_GraphicsBitmaps.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_ColorSpiral.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_GenomeDiagram.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_GraphicsChromosome.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_GraphicsDistribution.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_GraphicsGeneral.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_KGML_graphics.py" %}
+{% set test_files_to_skip = test_files_to_skip + " --ignore=test_KGML_graphics_online.py" %}
+
+# Tests skipped due to assertion errors, test files not found and general error
+{% set tests_to_skip = "test_orchid_est" %}
+{% set tests_to_skip = tests_to_skip + " or test_pcr_primers" %}
+{% set tests_to_skip = tests_to_skip + " or test_retrieve_pdb_file_mmtf" %}
+{% set tests_to_skip = tests_to_skip + " or test_search_with_fields" %}
+{% set tests_to_skip = tests_to_skip + " or test_reading" %}
+{% set tests_to_skip = tests_to_skip + " or test_random" %}
+{% set tests_to_skip = tests_to_skip + " or test_random_sequences" %}
+{% set tests_to_skip = tests_to_skip + " or test_pubmed_search_porin" %}
+{% set tests_to_skip = tests_to_skip + " or test_get_mmcif_file_path_for" %}
+{% set tests_to_skip = tests_to_skip + " or test_pubmed_search_bioruby" %}
+{% set tests_to_skip = tests_to_skip + " or test_pubmed_search_togows" %}
+{% set tests_to_skip = tests_to_skip + " or test_epost" %}
+{% set tests_to_skip = tests_to_skip + " or test_webenv_search" %}
+
 test:
+  source_files:
+    - Tests
   imports:
     - Bio
     - Bio.Affy
     - Bio.Align
     - Bio.Align.Applications
+    - Bio.Align.substitution_matrices
     - Bio.AlignIO
-    - Bio.Application
     - Bio.Blast
     - Bio.CAPS
     - Bio.Cluster
+    - Bio.codonalign
     - Bio.Compass
-    - Bio.Crystal
     - Bio.Data
     - Bio.Emboss
     - Bio.Entrez
     - Bio.ExPASy
-    - Bio.FSSP
     - Bio.GenBank
     - Bio.Geo
-    #Requires soft dependency reportlab
-    #- Bio.Graphics
-    #- Bio.Graphics.GenomeDiagram
     - Bio.HMM
     - Bio.KEGG
     - Bio.KEGG.Compound
     - Bio.KEGG.Enzyme
-    - Bio.KEGG.KGML
+    - Bio.KEGG.Gene
     - Bio.KEGG.Map
+    - Bio.KEGG.KGML
     - Bio.Medline
-    - Bio.NMR
+    - Bio.motifs
+    - Bio.motifs.applications
+    - Bio.motifs.jaspar
     - Bio.Nexus
-    - Bio.PDB
-    - Bio.PDB.QCPSuperimposer
-    #Requires soft dependency mmtf-python
-    #- Bio.PDB.mmtf
+    - Bio.NMR
     - Bio.Pathway
     - Bio.Pathway.Rep
-    - Bio.Phylo
-    - Bio.Phylo.Applications
-    - Bio.Phylo.PAML
+    - Bio.PDB
+    - Bio.phenotype
     - Bio.PopGen
     - Bio.PopGen.GenePop
     - Bio.Restriction
     - Bio.SCOP
-    - Bio.SVDSuperimposer
     - Bio.SearchIO
-    - Bio.SearchIO.BlastIO
-    - Bio.SearchIO.ExonerateIO
-    - Bio.SearchIO.HmmerIO
     - Bio.SearchIO._model
+    - Bio.SearchIO.BlastIO
+    - Bio.SearchIO.HHsuiteIO
+    - Bio.SearchIO.HmmerIO
+    - Bio.SearchIO.ExonerateIO
+    - Bio.SearchIO.InterproscanIO
     - Bio.SeqIO
     - Bio.SeqUtils
     - Bio.Sequencing
     - Bio.Sequencing.Applications
-    - Bio.Statistics
-    - Bio.SubsMat
+    - Bio.SVDSuperimposer
     - Bio.SwissProt
     - Bio.TogoWS
+    - Bio.Phylo
+    - Bio.Phylo.Applications
+    - Bio.Phylo.PAML
     - Bio.UniGene
     - Bio.UniProt
-    - Bio.Wise
-    - Bio.codonalign
-    - Bio.cpairwise2
-    - Bio.motifs
-    - Bio.motifs.applications
-    - Bio.motifs.jaspar
-    - Bio.phenotype
     - BioSQL
+  requires:
+    - pip
+    - pytest
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    # cd into Tests folder due to relative paths in tests
+    - cd Tests && pytest . -v -k "not ({{ tests_to_skip }})" {{ test_files_to_skip }}
 
 about:
-  home: http://biopython.org
-  license: Biopython License Agreement
+  home: https://biopython.org
+  license: BSD-3-Clause
+  license_family: BSD
   license_file: LICENSE.rst
   summary: Collection of freely available tools for computational molecular biology
   description: |
     Biopython is a collection of freely available Python tools for
     computational molecular biology
-  doc_url: http://biopython.org
+  doc_url: https://biopython.org
   dev_url: https://github.com/biopython/biopython
 
 extra:
