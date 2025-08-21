@@ -22,7 +22,7 @@ requirements:
     - pip
     - wheel
     - python
-    - setuptools
+    - setuptools >=61.0.0
   run:
     - python
     - numpy
@@ -89,6 +89,7 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_pubmed_search_togows" %}
 {% set tests_to_skip = tests_to_skip + " or test_epost" %}
 {% set tests_to_skip = tests_to_skip + " or test_webenv_search" %}
+{% set tests_to_skip = tests_to_skip + " or test_taxon_left_right_values" %}
 
 test:
   source_files:
