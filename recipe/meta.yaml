@@ -1,33 +1,5 @@
 {% set name = "biopython" %}
-{% set version = "1.85" %}
-
-package:
-  name: {{ name|lower }}
-  version: {{ version }}
-
-source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 5dafab74059de4e78f49f6b5684eddae6e7ce46f09cfa059c1d1339e8b1ea0a6
-
-build:
-  number: 0
-  skip: True  # [py<39]
-  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
-
-requirements:
-  build:
-    - {{ stdlib('c') }}
-    - {{ compiler('c') }}
-  host:
-    - pip
-    - wheel
-    - python
-    - setuptools
-  run:
-    - python
-    - numpy
-
-# Test file skipping due to missing import dependencies which are not in main channel
+{% set version = "1.86" %}
 {% set test_files_to_skip = "--ignore=test_BWA_tool.py" %}
 {% set test_files_to_skip = test_files_to_skip + " --ignore=test_BioSQL_MySQLdb.py" %}
 {% set test_files_to_skip = test_files_to_skip + " --ignore=test_BioSQL_MySQLdb_online.py" %}
@@ -74,8 +46,6 @@ requirements:
 {% set test_files_to_skip = test_files_to_skip + " --ignore=test_GraphicsGeneral.py" %}
 {% set test_files_to_skip = test_files_to_skip + " --ignore=test_KGML_graphics.py" %}
 {% set test_files_to_skip = test_files_to_skip + " --ignore=test_KGML_graphics_online.py" %}
-
-# Tests skipped due to assertion errors, test files not found and general error
 {% set tests_to_skip = "test_orchid_est" %}
 {% set tests_to_skip = tests_to_skip + " or test_pcr_primers" %}
 {% set tests_to_skip = tests_to_skip + " or test_retrieve_pdb_file_mmtf" %}
@@ -90,6 +60,34 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_epost" %}
 {% set tests_to_skip = tests_to_skip + " or test_webenv_search" %}
 
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 93a50b586a4d2cec68ab2f99d03ef583c5761d8fba5535cb8e81da781d0d92ff
+
+build:
+  number: 0
+  skip: true  # [py<39]
+  script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
+
+requirements:
+  build:
+    - {{ stdlib('c') }}
+    - {{ compiler('c') }}
+  host:
+    - pip
+    - wheel
+    - python
+    - setuptools
+  run:
+    - python
+    - numpy
+
+# Test file skipping due to missing import dependencies which are not in main channel
+# Tests skipped due to assertion errors, test files not found and general error
 test:
   source_files:
     - Tests
