@@ -89,6 +89,8 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_pubmed_search_togows" %}
 {% set tests_to_skip = tests_to_skip + " or test_epost" %}
 {% set tests_to_skip = tests_to_skip + " or test_webenv_search" %}
+# E       urllib.error.HTTPError: HTTP Error 429: Too Many Requests
+{% set tests_to_skip = tests_to_skip + " or EntrezOnlineCase" %}
 
 test:
   source_files:
@@ -209,12 +211,12 @@ test:
     - BioSQL
   requires:
     - pip
-    - pytest
+    - pytest <9
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     # cd into Tests folder due to relative paths in tests
-    - cd Tests && pytest . -v {{ test_files_to_skip }}
+    - cd Tests && pytest . -v -k "not ({{ tests_to_skip }})" {{ test_files_to_skip }}
 
 about:
   home: https://biopython.org
