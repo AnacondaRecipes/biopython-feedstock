@@ -16,7 +16,7 @@ build:
 
 requirements:
   build:
-    - {{ stdlib('c') }}
+    # - {{ stdlib('c') }}
     - {{ compiler('c') }}
   host:
     - pip
@@ -111,7 +111,6 @@ test:
     - Bio.AlignIO.NexusIO
     - Bio.AlignIO.PhylipIO
     - Bio.Blast
-    - Bio.Blast.Applications
     - Bio.Blast.NCBIXML
     - Bio.codonalign.codonalignment
     - Bio.codonalign.codonseq
@@ -125,16 +124,6 @@ test:
     - Bio.File
     - Bio.GenBank
     - Bio.GenBank.Scanner
-    - Bio.Graphics
-    - Bio.Graphics.BasicChromosome
-    - Bio.Graphics.ColorSpiral
-    - Bio.Graphics.Comparative
-    - Bio.Graphics.DisplayRepresentation
-    - Bio.Graphics.Distribution
-    - Bio.Graphics.GenomeDiagram
-    - Bio.Graphics.GenomeDiagram._Colors
-    - Bio.Graphics.GenomeDiagram._Graph
-    - Bio.Graphics.KGML_vis
     - Bio.KEGG
     - Bio.KEGG.KGML
     - Bio.KEGG.KGML.KGML_parser
@@ -152,7 +141,6 @@ test:
     - Bio.PDB._bcif_helper
     - Bio.PDB.AbstractPropertyMap
     - Bio.PDB.Atom
-    - Bio.PDB.binary_cif
     - Bio.PDB.ccealign
     - Bio.PDB.Chain
     - Bio.PDB.Entity
@@ -162,8 +150,6 @@ test:
     - Bio.PDB.kdtrees
     - Bio.PDB.MMCIF2Dict
     - Bio.PDB.MMCIFParser
-    - Bio.PDB.mmtf
-    - Bio.PDB.mmtf.DefaultParser
     - Bio.PDB.Model
     - Bio.PDB.NACCESS
     - Bio.PDB.NeighborSearch
@@ -202,7 +188,6 @@ test:
     - Bio.SCOP.Residues
     - Bio.SearchIO
     - Bio.SearchIO._index
-    - Bio.SearchIO._legacy
     - Bio.SearchIO._model
     - Bio.SearchIO._utils
     - Bio.SearchIO.BlastIO.blast_tab
@@ -229,7 +214,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     # cd into Tests folder due to relative paths in tests
-    - pytest Tests -v {{ test_files_to_skip }}
+    - cd Tests && pytest . -v {{ test_files_to_skip }}
 
 about:
   home: https://biopython.org
