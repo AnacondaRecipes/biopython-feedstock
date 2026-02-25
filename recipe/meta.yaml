@@ -95,61 +95,132 @@ test:
     - Tests
   imports:
     - Bio
+    - Bio._utils
     - Bio.Affy
     - Bio.Align
-    - Bio.Align.Applications
+    - Bio.Align.analysis
+    - Bio.Align.bigbed
+    - Bio.Align.nexus
     - Bio.Align.substitution_matrices
     - Bio.AlignIO
+    - Bio.AlignIO.ClustalIO
+    - Bio.AlignIO.EmbossIO
+    - Bio.AlignIO.Interfaces
+    - Bio.AlignIO.MafIO
+    - Bio.AlignIO.MauveIO
+    - Bio.AlignIO.NexusIO
+    - Bio.AlignIO.PhylipIO
+    - Bio.Alphabet
     - Bio.Blast
-    - Bio.CAPS
-    - Bio.Cluster
-    - Bio.codonalign
-    - Bio.Compass
+    - Bio.Blast.Applications
+    - Bio.Blast.NCBIXML
+    - Bio.codonalign.codonalignment
+    - Bio.codonalign.codonseq
     - Bio.Data
+    - Bio.Data.CodonTable
+    - Bio.Data.IUPACData
+    - Bio.Data.PDBData
     - Bio.Emboss
     - Bio.Entrez
     - Bio.ExPASy
+    - Bio.File
     - Bio.GenBank
-    - Bio.Geo
-    - Bio.HMM
+    - Bio.GenBank.Scanner
+    - Bio.Graphics
+    - Bio.Graphics.BasicChromosome
+    - Bio.Graphics.ColorSpiral
+    - Bio.Graphics.Comparative
+    - Bio.Graphics.DisplayRepresentation
+    - Bio.Graphics.Distribution
+    - Bio.Graphics.GenomeDiagram
+    - Bio.Graphics.GenomeDiagram._Colors
+    - Bio.Graphics.GenomeDiagram._Graph
+    - Bio.Graphics.KGML_vis
     - Bio.KEGG
-    - Bio.KEGG.Compound
-    - Bio.KEGG.Enzyme
-    - Bio.KEGG.Gene
-    - Bio.KEGG.Map
     - Bio.KEGG.KGML
-    - Bio.Medline
+    - Bio.KEGG.KGML.KGML_parser
+    - Bio.KEGG.KGML.KGML_pathway
+    - Bio.KEGG.REST
     - Bio.motifs
-    - Bio.motifs.applications
-    - Bio.motifs.jaspar
     - Bio.Nexus
+    - Bio.Nexus.StandardData
+    - Bio.Nexus.Trees
     - Bio.NMR
     - Bio.Pathway
-    - Bio.Pathway.Rep
+    - Bio.Pathway.Rep.Graph
+    - Bio.Pathway.Rep.MultiGraph
     - Bio.PDB
+    - Bio.PDB._bcif_helper
+    - Bio.PDB.AbstractPropertyMap
+    - Bio.PDB.Atom
+    - Bio.PDB.binary_cif
+    - Bio.PDB.ccealign
+    - Bio.PDB.Chain
+    - Bio.PDB.Entity
+    - Bio.PDB.ic_data
+    - Bio.PDB.ic_rebuild
+    - Bio.PDB.internal_coords
+    - Bio.PDB.kdtrees
+    - Bio.PDB.MMCIF2Dict
+    - Bio.PDB.MMCIFParser
+    - Bio.PDB.mmtf
+    - Bio.PDB.mmtf.DefaultParser
+    - Bio.PDB.Model
+    - Bio.PDB.NACCESS
+    - Bio.PDB.NeighborSearch
+    - Bio.PDB.parse_pdb_header
+    - Bio.PDB.PDBExceptions
+    - Bio.PDB.PDBIO
+    - Bio.PDB.PDBList
+    - Bio.PDB.PDBParser
+    - Bio.PDB.PICIO
+    - Bio.PDB.Polypeptide
+    - Bio.PDB.PSEA
+    - Bio.PDB.qcprot
+    - Bio.PDB.Residue
+    - Bio.PDB.ResidueDepth
+    - Bio.PDB.SASA
+    - Bio.PDB.SCADIO
+    - Bio.PDB.Selection
+    - Bio.PDB.Structure
+    - Bio.PDB.StructureBuilder
+    - Bio.PDB.vectors
     - Bio.phenotype
+    - Bio.Phylo
+    - Bio.Phylo._io
+    - Bio.Phylo._utils
+    - Bio.Phylo.Consensus
+    - Bio.Phylo.PAML
+    - Bio.Phylo.PAML._paml
+    - Bio.Phylo.TreeConstruction
     - Bio.PopGen
     - Bio.PopGen.GenePop
     - Bio.Restriction
+    - Bio.Restriction.PrintFormat
+    - Bio.Restriction.Restriction
+    - Bio.Restriction.Restriction_Dictionary
     - Bio.SCOP
+    - Bio.SCOP.Residues
     - Bio.SearchIO
+    - Bio.SearchIO._index
+    - Bio.SearchIO._legacy
     - Bio.SearchIO._model
-    - Bio.SearchIO.BlastIO
-    - Bio.SearchIO.HHsuiteIO
-    - Bio.SearchIO.HmmerIO
-    - Bio.SearchIO.ExonerateIO
-    - Bio.SearchIO.InterproscanIO
+    - Bio.SearchIO._utils
+    - Bio.SearchIO.BlastIO.blast_tab
+    - Bio.Seq
+    - Bio.SeqFeature
     - Bio.SeqIO
-    - Bio.SeqUtils
+    - Bio.SeqIO._index
+    - Bio.SeqIO.FastaIO
+    - Bio.SeqIO.InsdcIO
+    - Bio.SeqIO.SffIO
+    - Bio.SeqRecord
     - Bio.Sequencing
-    - Bio.Sequencing.Applications
+    - Bio.SeqUtils
+    - Bio.SeqUtils.CheckSum
+    - Bio.SeqUtils.lcc
     - Bio.SVDSuperimposer
     - Bio.SwissProt
-    - Bio.TogoWS
-    - Bio.Phylo
-    - Bio.Phylo.Applications
-    - Bio.Phylo.PAML
-    - Bio.UniGene
     - Bio.UniProt
     - BioSQL
   requires:
