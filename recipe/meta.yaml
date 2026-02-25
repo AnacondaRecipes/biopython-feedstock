@@ -110,7 +110,6 @@ test:
     - Bio.AlignIO.MauveIO
     - Bio.AlignIO.NexusIO
     - Bio.AlignIO.PhylipIO
-    - Bio.Alphabet
     - Bio.Blast
     - Bio.Blast.Applications
     - Bio.Blast.NCBIXML
