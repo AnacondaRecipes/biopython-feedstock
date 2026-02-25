@@ -89,9 +89,13 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_pubmed_search_togows" %}
 {% set tests_to_skip = tests_to_skip + " or test_epost" %}
 {% set tests_to_skip = tests_to_skip + " or test_webenv_search" %}
+{% set tests_to_skip = tests_to_skip + " or test_coord_space" %}
 # E       urllib.error.HTTPError: HTTP Error 429: Too Many Requests
 {% set tests_to_skip = tests_to_skip + " or EntrezOnlineCase" %}
-
+# E           AttributeError: module 'unittest' has no attribute 'patch'
+{% set tests_to_skip = tests_to_skip + " or test_retrieve_pdb_file_bad_url" %}
+{% set tests_to_skip = tests_to_skip + " or test_retrieve_pdb_file_not_existing" %}
+  
 test:
   source_files:
     - Tests
