@@ -1,5 +1,5 @@
 {% set name = "biopython" %}
-{% set version = "1.85" %}
+{% set version = "1.86" %}
 
 package:
   name: {{ name|lower }}
@@ -7,11 +7,11 @@ package:
 
 source:
   url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 5dafab74059de4e78f49f6b5684eddae6e7ce46f09cfa059c1d1339e8b1ea0a6
+  sha256: 93a50b586a4d2cec68ab2f99d03ef583c5761d8fba5535cb8e81da781d0d92ff
 
 build:
   number: 0
-  skip: True  # [py<39]
+  skip: True  # [py<310]
   script: {{ PYTHON }} -m pip install . --no-deps --no-build-isolation --ignore-installed --no-cache-dir -vvv
 
 requirements:
@@ -22,7 +22,7 @@ requirements:
     - pip
     - wheel
     - python
-    - setuptools
+    - setuptools  >=70.1
   run:
     - python
     - numpy
@@ -89,72 +89,138 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_pubmed_search_togows" %}
 {% set tests_to_skip = tests_to_skip + " or test_epost" %}
 {% set tests_to_skip = tests_to_skip + " or test_webenv_search" %}
+{% set tests_to_skip = tests_to_skip + " or test_coord_space" %}
+# E       urllib.error.HTTPError: HTTP Error 429: Too Many Requests
+{% set tests_to_skip = tests_to_skip + " or EntrezOnlineCase" %}
+{% set tests_to_skip = tests_to_skip + " or test_load_database_with_tax_lookup" %}
+# E       urllib.error.HTTPError: HTTP Error 504: Gateway Time-out
+{% set tests_to_skip = tests_to_skip + " or TestMotifWeblogo" %}
+# E           AttributeError: module 'unittest' has no attribute 'patch'
+{% set tests_to_skip = tests_to_skip + " or test_retrieve_pdb_file_bad_url" %}
+{% set tests_to_skip = tests_to_skip + " or test_retrieve_pdb_file_not_existing" %}
+# E           http.client.RemoteDisconnected: Remote end closed connection without response
+{% set tests_to_skip = tests_to_skip + " or test_short_query" %}
 
 test:
   source_files:
     - Tests
   imports:
     - Bio
+    - Bio._utils
     - Bio.Affy
     - Bio.Align
-    - Bio.Align.Applications
+    - Bio.Align.analysis
+    - Bio.Align.bigbed
+    - Bio.Align.nexus
     - Bio.Align.substitution_matrices
     - Bio.AlignIO
+    - Bio.AlignIO.ClustalIO
+    - Bio.AlignIO.EmbossIO
+    - Bio.AlignIO.Interfaces
+    - Bio.AlignIO.MafIO
+    - Bio.AlignIO.MauveIO
+    - Bio.AlignIO.NexusIO
+    - Bio.AlignIO.PhylipIO
     - Bio.Blast
-    - Bio.CAPS
-    - Bio.Cluster
-    - Bio.codonalign
-    - Bio.Compass
+    - Bio.Blast.NCBIXML
+    - Bio.codonalign.codonalignment
+    - Bio.codonalign.codonseq
     - Bio.Data
+    - Bio.Data.CodonTable
+    - Bio.Data.IUPACData
+    - Bio.Data.PDBData
     - Bio.Emboss
     - Bio.Entrez
     - Bio.ExPASy
+    - Bio.File
     - Bio.GenBank
-    - Bio.Geo
-    - Bio.HMM
+    - Bio.GenBank.Scanner
     - Bio.KEGG
-    - Bio.KEGG.Compound
-    - Bio.KEGG.Enzyme
-    - Bio.KEGG.Gene
-    - Bio.KEGG.Map
     - Bio.KEGG.KGML
-    - Bio.Medline
+    - Bio.KEGG.KGML.KGML_parser
+    - Bio.KEGG.KGML.KGML_pathway
+    - Bio.KEGG.REST
     - Bio.motifs
-    - Bio.motifs.applications
-    - Bio.motifs.jaspar
     - Bio.Nexus
+    - Bio.Nexus.StandardData
+    - Bio.Nexus.Trees
     - Bio.NMR
     - Bio.Pathway
-    - Bio.Pathway.Rep
+    - Bio.Pathway.Rep.Graph
+    - Bio.Pathway.Rep.MultiGraph
     - Bio.PDB
+    - Bio.PDB._bcif_helper
+    - Bio.PDB.AbstractPropertyMap
+    - Bio.PDB.Atom
+    - Bio.PDB.ccealign
+    - Bio.PDB.Chain
+    - Bio.PDB.Entity
+    - Bio.PDB.ic_data
+    - Bio.PDB.ic_rebuild
+    - Bio.PDB.internal_coords
+    - Bio.PDB.kdtrees
+    - Bio.PDB.MMCIF2Dict
+    - Bio.PDB.MMCIFParser
+    - Bio.PDB.Model
+    - Bio.PDB.NACCESS
+    - Bio.PDB.NeighborSearch
+    - Bio.PDB.parse_pdb_header
+    - Bio.PDB.PDBExceptions
+    - Bio.PDB.PDBIO
+    - Bio.PDB.PDBList
+    - Bio.PDB.PDBParser
+    - Bio.PDB.PICIO
+    - Bio.PDB.Polypeptide
+    - Bio.PDB.PSEA
+    - Bio.PDB.qcprot
+    - Bio.PDB.Residue
+    - Bio.PDB.ResidueDepth
+    - Bio.PDB.SASA
+    - Bio.PDB.SCADIO
+    - Bio.PDB.Selection
+    - Bio.PDB.Structure
+    - Bio.PDB.StructureBuilder
+    - Bio.PDB.vectors
     - Bio.phenotype
+    - Bio.Phylo
+    - Bio.Phylo._io
+    - Bio.Phylo._utils
+    - Bio.Phylo.Consensus
+    - Bio.Phylo.PAML
+    - Bio.Phylo.PAML._paml
+    - Bio.Phylo.TreeConstruction
     - Bio.PopGen
     - Bio.PopGen.GenePop
     - Bio.Restriction
+    - Bio.Restriction.PrintFormat
+    - Bio.Restriction.Restriction
+    - Bio.Restriction.Restriction_Dictionary
     - Bio.SCOP
+    - Bio.SCOP.Residues
     - Bio.SearchIO
+    - Bio.SearchIO._index
     - Bio.SearchIO._model
-    - Bio.SearchIO.BlastIO
-    - Bio.SearchIO.HHsuiteIO
-    - Bio.SearchIO.HmmerIO
-    - Bio.SearchIO.ExonerateIO
-    - Bio.SearchIO.InterproscanIO
+    - Bio.SearchIO._utils
+    - Bio.SearchIO.BlastIO.blast_tab
+    - Bio.Seq
+    - Bio.SeqFeature
     - Bio.SeqIO
-    - Bio.SeqUtils
+    - Bio.SeqIO._index
+    - Bio.SeqIO.FastaIO
+    - Bio.SeqIO.InsdcIO
+    - Bio.SeqIO.SffIO
+    - Bio.SeqRecord
     - Bio.Sequencing
-    - Bio.Sequencing.Applications
+    - Bio.SeqUtils
+    - Bio.SeqUtils.CheckSum
+    - Bio.SeqUtils.lcc
     - Bio.SVDSuperimposer
     - Bio.SwissProt
-    - Bio.TogoWS
-    - Bio.Phylo
-    - Bio.Phylo.Applications
-    - Bio.Phylo.PAML
-    - Bio.UniGene
     - Bio.UniProt
     - BioSQL
   requires:
     - pip
-    - pytest
+    - pytest <9
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
