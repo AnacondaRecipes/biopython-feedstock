@@ -96,7 +96,9 @@ requirements:
 # E           AttributeError: module 'unittest' has no attribute 'patch'
 {% set tests_to_skip = tests_to_skip + " or test_retrieve_pdb_file_bad_url" %}
 {% set tests_to_skip = tests_to_skip + " or test_retrieve_pdb_file_not_existing" %}
-  
+# E           http.client.RemoteDisconnected: Remote end closed connection without response
+{% set tests_to_skip = tests_to_skip + " or test_short_query" %}
+
 test:
   source_files:
     - Tests
