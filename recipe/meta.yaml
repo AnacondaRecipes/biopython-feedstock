@@ -22,7 +22,7 @@ requirements:
     - pip
     - wheel
     - python
-    - setuptools
+    - setuptools  >=70.1
   run:
     - python
     - numpy
