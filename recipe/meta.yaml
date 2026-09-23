@@ -100,6 +100,12 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_retrieve_pdb_file_not_existing" %}
 # E           http.client.RemoteDisconnected: Remote end closed connection without response
 {% set tests_to_skip = tests_to_skip + " or test_short_query" %}
+# E       urllib.error.HTTPError: HTTP Error 400: Bad Request (KEGG REST API rejects this query)
+{% set tests_to_skip = tests_to_skip + " or test_list_organism" %}
+# E       ExpatError: mismatched tag (ExPASy ScanProsite rate-limits concurrent CI jobs)
+{% set tests_to_skip = tests_to_skip + " or test_scanprosite_pdb" %}
+{% set tests_to_skip = tests_to_skip + " or test_scanprosite_swissprot" %}
+{% set tests_to_skip = tests_to_skip + " or test_scanprosite_trembl" %}
 
 test:
   source_files:
