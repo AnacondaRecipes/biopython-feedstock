@@ -1,13 +1,13 @@
 {% set name = "biopython" %}
-{% set version = "1.86" %}
+{% set version = "1.88" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 93a50b586a4d2cec68ab2f99d03ef583c5761d8fba5535cb8e81da781d0d92ff
+  url: https://files.pythonhosted.org/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+  sha256: 9aaa31c0bda4d059f7b2ee00bfdb5cbb73ade3057aa4b737a7cc0187091d071a
 
 build:
   number: 0
@@ -22,7 +22,7 @@ requirements:
     - pip
     - wheel
     - python
-    - setuptools  >=70.1
+    - setuptools  >=74.1
   run:
     - python
     - numpy
@@ -100,6 +100,12 @@ requirements:
 {% set tests_to_skip = tests_to_skip + " or test_retrieve_pdb_file_not_existing" %}
 # E           http.client.RemoteDisconnected: Remote end closed connection without response
 {% set tests_to_skip = tests_to_skip + " or test_short_query" %}
+# E       urllib.error.HTTPError: HTTP Error 400: Bad Request (KEGG REST API rejects this query)
+{% set tests_to_skip = tests_to_skip + " or test_list_organism" %}
+# E       ExpatError: mismatched tag (ExPASy ScanProsite rate-limits concurrent CI jobs)
+{% set tests_to_skip = tests_to_skip + " or test_scanprosite_pdb" %}
+{% set tests_to_skip = tests_to_skip + " or test_scanprosite_swissprot" %}
+{% set tests_to_skip = tests_to_skip + " or test_scanprosite_trembl" %}
 
 test:
   source_files:
@@ -225,7 +231,7 @@ test:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
     # cd into Tests folder due to relative paths in tests
-    - cd Tests && pytest . -v -k "not ({{ tests_to_skip }})" {{ test_files_to_skip }}
+    - cd Tests && pytest . -vv -k "not ({{ tests_to_skip }})" {{ test_files_to_skip }}
 
 about:
   home: https://biopython.org
